@@ -49,7 +49,7 @@ const Navbar = () => {
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
 
-          <ul className="hidden md:flex gap-6 text-white font-medium">
+          <ul className="hidden md:flex gap-6 text-white font-medium text-xl mr-9">
             {navItems.map((item, index) => (
               <li key={index}>
                 <Link href={item.href} className="hover:text-[#ad8d47] transition">
