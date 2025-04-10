@@ -1,9 +1,8 @@
-"use client"; // إذا كنتِ تستخدمين app directory
-
+"use client"
+import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react"; // أيقونات
-import Image from "next/image";
+import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,17 +17,31 @@ const Navbar = () => {
   ];
 
   return (
-    <div
-      className="relative bg-cover bg-center bg-no-repeat h-screen"
-      style={{ backgroundImage: "url('/photos/head.jpg')" }}
-    >
-      {/* نافبار داخل الهيدر */}
-      <nav className="sticky top-0 z-20 bg-transparent backdrop-blur-md shadow-none">
-        <div className="container mx-auto px-4  flex justify-between items-center">
-          {/* إضافة اللوجو كصورة */}
-          <Image src="/photos/logo.jpg" alt="Logo" width={100} height={100} />
+    <div className="relative h-screen w-full overflow-hidden">
+      {/* ✅ خلفية صورة باستخدام Image */}
+      <Image
+        src="/photos/head.jpg"
+        alt="background"
+        fill
+        style={{ objectFit: "cover" }}
+        priority // دي أهم حاجة: تخليها تتحمّل أول حاجة
+      />
 
-          {/* زر الموبايل */}
+      {/* overlay داكن لتوضيح النصوص */}
+      <div className="absolute inset-0 bg-black/60 z-10" />
+
+      {/* Navbar + محتوى */}
+      <div className="relative z-20">
+        {/* Navbar */}
+        <nav className="px-4 py-4 flex justify-between items-center">
+          <Image
+            src="/photos/logo.jpg"
+            alt="Logo"
+            width={100}
+            height={100}
+            priority
+          />
+
           <button
             className="md:hidden text-white"
             onClick={() => setIsOpen(!isOpen)}
@@ -36,7 +49,6 @@ const Navbar = () => {
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
 
-          {/* قائمة الروابط - سطح المكتب */}
           <ul className="hidden md:flex gap-6 text-white font-medium">
             {navItems.map((item, index) => (
               <li key={index}>
@@ -46,11 +58,10 @@ const Navbar = () => {
               </li>
             ))}
           </ul>
-        </div>
+        </nav>
 
-        {/* قائمة الروابط - موبايل */}
-        {/* قائمة الروابط - موبايل */}
-{isOpen && (
+        {/* Mobile menu */}
+        {isOpen && (
   <ul
     className="md:hidden px-4 pb-4 flex flex-col gap-4 text-white font-medium 
               animate-slideDown transition-all duration-300 ease-in-out"
@@ -69,13 +80,13 @@ const Navbar = () => {
   </ul>
 )}
 
-      </nav>
-
-      {/* محتوى هيدر مع النصوص */}
-      <div className="absolute inset-0 bg-black/100 opacity-65"></div> {/* تأثير الظل لتوضيح النص */}
-      <div className="relative z-10 text-white flex justify-center items-center flex-col pt-32 px-36 max-md:px-7">
-        <h1 className="text-4xl font-bold">مرحبًا بك في إتساق</h1>
-        <p className="mt-4 text-lg text-center max-md:text-sm">تتخصص إتساق في تصميم وتنفيذ أنظمة تقييم إلكترونية مصممة خصيصا لتقييم كفاءة الطلاب في اللغة العربية والتربية الإسلامية كما تخدم المنصة المتعلمين العرب وغير العرب على حد سواء ، وتوفر حلولا رقمية مخصصة تتوافق مع المعايير التعليمية. من خلال الاستفادة من البرامج التعليمية المتقدمة وتصميم نظم الحاسب الآلي في التدريب والتعليم  . كما تجري اتساق تحليلا متعمقا للمتطلبات المؤسسية لتطوير أدوات فعالة وسلسة الاستخدام لتقييم المهارات اللغوية وتدعم أيضا المدارس والهيئات التعليمية والمؤسسات في تقديم تقييمات دقيقة وذات معنى .</p>
+        {/* محتوى النصوص */}
+        <div className="text-white flex justify-center items-center flex-col px-6 pt-24 text-center">
+          <h1 className="text-4xl font-bold">مرحبًا بك في إتساق</h1>
+          <p className="mt-4 text-lg max-w-4xl">
+            تتخصص إتساق في تصميم وتنفيذ أنظمة تقييم إلكترونية مصممة خصيصا لتقييم كفاءة الطلاب في اللغة العربية والتربية الإسلامية كما تخدم المنصة المتعلمين العرب وغير العرب على حد سواء ، وتوفر حلولا رقمية مخصصة تتوافق مع المعايير التعليمية. من خلال الاستفادة من البرامج التعليمية المتقدمة وتصميم نظم الحاسب الآلي في التدريب والتعليم  . كما تجري اتساق تحليلا متعمقا للمتطلبات المؤسسية لتطوير أدوات فعالة وسلسة الاستخدام لتقييم المهارات اللغوية وتدعم أيضا المدارس والهيئات التعليمية والمؤسسات في تقديم تقييمات دقيقة وذات معنى .
+          </p>
+        </div>
       </div>
     </div>
   );
